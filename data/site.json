@@ -1,0 +1,31 @@
+{
+  "_comment": "Central place for the homepage's outbound URLs. Every href in index.html that points at shop infrastructure is generated from this file, so wiring the homepage to the real shop means editing this file and re-running `node scripts/build.mjs` — not hunting through markup.",
+  "_todo": "TODO(integration): replace every path below with the real Filaverse shop URL. Paths that do not exist yet must be removed here AND from the corresponding section, rather than left as dead links. The two `gids*` entries back the 'Hulp bij kiezen' cards: if those guides are not written, delete the entries AND the corresponding cards in index.html.",
+  "baseUrl": "https://www.filaverse.be",
+  "urls": {
+    "filament": "/filament",
+    "printers": "/3d-printers",
+    "accessoires": "/accessoires",
+    "bundels": "/bundels",
+    "zakelijk": "/zakelijk",
+    "onderwijs": "/onderwijs",
+    "offerte": "/zakelijk/offerte",
+    "blog": "/blog",
+    "gidsPlaOfPetg": "/blog/pla-of-petg",
+    "gidsCompatibiliteit": "/blog/filament-en-printer-compatibiliteit",
+    "contact": "/contact",
+    "account": "/account",
+    "cart": "/winkelmand",
+    "search": "/zoeken",
+    "impact": "/impact",
+    "overFilaverse": "/over-filaverse",
+    "merkFilaverse": "/merken/filaverse",
+    "merkSmartPrint": "/merken/smart-print",
+    "faq": "/klantendienst/faq",
+    "verzending": "/klantendienst/verzending",
+    "retourneren": "/klantendienst/retourneren",
+    "algemeneVoorwaarden": "/algemene-voorwaarden",
+    "privacy": "/privacybeleid",
+    "cookies": "/cookiebeleid"
+  }
+}

@@ -1,0 +1,13 @@
+# Filaverse — https://www.filaverse.be/
+# Only the homepage exists today; the sitemap reflects that rather than
+# advertising routes that would 404.
+
+User-agent: *
+Allow: /
+
+# Not content: nothing to index behind these.
+Disallow: /winkelmand
+Disallow: /account
+Disallow: /zoeken
+
+Sitemap: https://www.filaverse.be/sitemap.xml
