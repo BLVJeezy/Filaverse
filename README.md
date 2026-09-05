@@ -217,10 +217,12 @@ wasted request per card; removing that took `main.js` from 16.4 KB to 10.1 KB.
 **Palette — blue / white / black.** White, off-white and light grey surfaces
 with near-black text. A single brand blue (`--fv-accent`) carries the primary
 purchase CTA, badges and active states; a muted blue-grey (`--fv-steel`) carries
-icons and supporting detail. **There is no orange anywhere.** The old
+icons and supporting detail. **No orange in the interface** — the old
 `--fv-orange*` / `--fv-teal*` token names survive as aliases onto the blue ramp,
 so any component still referencing them stays on-palette instead of silently
-reintroducing orange.
+reintroducing orange. The hero *footage* does contain orange (the printer's
+nozzle logo and "CAUTION HOT" label), now that the colour grade that removed it
+has been dropped on request.
 
 Retinting the whole page is a one-line change: replace `--fv-accent` at the top
 of `styles.css` with the exact blue from the logo file — everything else derives
@@ -326,16 +328,21 @@ gesture retry covers Low Power Mode. Worth one real-device check.
 
 ### Text over the video
 
-The mobile hero crops the 16:9 clip hard to portrait, so readability was
-measured rather than eyeballed: every frame was cropped as the browser crops
-it, and the brightest text-sized region in the whole clip (98.8/255) was
-composited with the scrim. Against that worst case the heading sits at 11.2:1
-and the lead paragraph at 8.1:1.
+The scrim is **neutral black**, never a colour cast, so the footage keeps its
+own colours and the overlay only darkens the side the copy sits on. On desktop
+the right-hand end is nearly clear (4% black).
 
-That measurement caught a real regression: lightening the mobile scrim dropped
-the eyebrow and hero USP icons — `--fv-accent-light`, fine at 4.94:1 on solid
-navy — to **3.16:1 over the video**, below AA. They now use `--fv-on-video`
-(`#9cc4ef`, 6.15:1). The two tokens exist separately because the same blue
+Readability is measured, not eyeballed: every frame is cropped the way the
+browser crops it, and the brightest text-sized region is composited with the
+scrim. For the ungraded clip that worst case is 118/255 in the mobile portrait
+crop and 105/255 in the desktop text column. Against it, every hero element
+passes AA — heading 9.7:1 (mobile) and 13.5:1 (desktop), the weakest element
+being the eyebrow at 5.3:1.
+
+That method previously caught a real regression: lightening the mobile scrim
+dropped the eyebrow and USP icons — `--fv-accent-light`, fine at 4.94:1 on solid
+navy — to **3.16:1 over the video**, below AA. They use `--fv-on-video`
+(`#9cc4ef`) instead. The two tokens exist separately because the same blue
 behaves differently over a solid panel and over footage.
 
 Note that with `object-fit: cover` in a portrait hero the clip overflows
