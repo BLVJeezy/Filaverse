@@ -189,6 +189,24 @@ budgeted rather than assumed — see below.
 slightly, arrows nudge, sections fade up once on entry. All of it is disabled
 under `prefers-reduced-motion`.
 
+### Asset caching — do not remove the version query
+
+`vercel.json` serves `/assets/*.{css,js}` with a one-year `immutable` cache.
+That is only safe because `scripts/build.mjs` appends a content hash to those
+two URLs (`styles.css?v=ff96fb…`), so an edited file always gets a new URL.
+
+**Skipping the build step after editing CSS or JS will ship a stale page.** This
+has already bitten once: an immutable cache on unversioned filenames meant
+returning visitors got new HTML paired with a year-old stylesheet — the hero
+video rendered as a plain block above the copy instead of behind it, the CTA was
+still orange, and the secondary hero button was invisible (translucent white on
+white). One cause, four symptoms.
+
+Media keeps stable filenames and is cached for a day with
+`stale-while-revalidate`, so a replaced image or video appears quickly rather
+than being pinned for a year. The HTML itself is always revalidated, since it is
+what carries the versioned asset URLs.
+
 ### Hero background video
 
 `assets/video/filaverse-hero-3d-print.{mp4,webm}` — a looping, silent,

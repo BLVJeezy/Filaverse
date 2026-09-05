@@ -16,6 +16,7 @@
  * contract.
  */
 
+import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -135,11 +136,36 @@ function replaceBlock(html, name, content) {
   return html.replace(re, (_m, open, close) => `${open}${content}\n${close}`);
 }
 
+/**
+ * Cache-bust the stylesheet and script.
+ *
+ * vercel.json serves /assets/* with a one-year immutable cache, which is only
+ * safe for a URL whose content can never change. These two files change on
+ * every design edit, and without a version in the URL returning visitors keep
+ * the cached copy: new HTML paired with a year-old stylesheet, which is how the
+ * hero once shipped with the video rendered as a plain block and the old orange
+ * CTA still in place. Appending a content hash gives changed files a new URL,
+ * so the immutable header becomes true rather than a lie.
+ */
+function version(html, filePath, attr) {
+  const hash = createHash("sha256")
+    .update(readFileSync(resolve(root, filePath)))
+    .digest("hex")
+    .slice(0, 10);
+  const re = new RegExp(`${attr}="${filePath}(\\?v=[a-f0-9]+)?"`, "g");
+  if (!re.test(html)) throw new Error(`Could not find ${attr}="${filePath}" in index.html`);
+  return html.replace(re, `${attr}="${filePath}?v=${hash}"`);
+}
+
 const indexPath = resolve(root, "index.html");
 let html = readFileSync(indexPath, "utf8");
 
 html = replaceBlock(html, "categories", categories.map(categoryCard).join("\n"));
 html = replaceBlock(html, "products", productData.products.map(productCard).join("\n"));
+
+// Must run after the card blocks, so the hash covers the final files.
+html = version(html, "assets/css/styles.css", "href");
+html = version(html, "assets/js/main.js", "src");
 
 writeFileSync(indexPath, html);
 
