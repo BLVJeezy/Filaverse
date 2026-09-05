@@ -165,6 +165,53 @@ lazy-loaded. Keep those attributes on any replacement.
 
 ---
 
+## Site files
+
+| File | Purpose |
+|---|---|
+| `index.html` | The homepage — the only content page that exists |
+| `404.html` | Custom error page. Vercel serves it for any unmatched route; its asset paths are absolute so it works at any URL depth |
+| `robots.txt` | Allows crawling, points at the sitemap, excludes cart/account/search |
+| `sitemap.xml` | Lists only `/` — see "Dead internal links" below |
+| `llms.txt` | Site summary for AI systems, including what they must not infer (no prices, no ratings) |
+| `site.webmanifest` | Icons, theme colour, standalone display |
+| `favicon.ico` | 16/32/48 embedded PNGs, hand-built container |
+| `docs/dead-links.md` | The 29 routes linked but not built |
+| `docs/localbusiness-schema.md` | Ready-to-fill local/store schema, not yet published |
+
+### Icons and share image
+
+The favicon uses the logo **mark** only — a wordmark is illegible at 16 px.
+Sources are `assets/img/favicon.svg` and `favicon-maskable.svg` (the maskable
+variant keeps a safe zone, because Android crops icons to a circle); the PNGs
+and the `.ico` are rendered from them.
+
+`assets/img/filaverse-social-share.jpg` is a purpose-built 1200×630 card
+(86 KB) with `og:image:width/height/alt` declared. It is drawn from the brand
+elements and deliberately contains **no third-party trademarks**.
+
+### Dead internal links
+
+Only `/` exists. The homepage links 29 routes that return the 404 page —
+`docs/dead-links.md` lists every one. They are deliberately **absent from
+`sitemap.xml`**, so search engines are not pointed at URLs that 404.
+
+For the same reason the `SearchAction` was removed from the structured data:
+`/zoeken` does not resolve, and advertising a search endpoint that 404s is
+worse than omitting it. Restore it when site search ships.
+
+### Catalogue image fallback
+
+Real product photography is hotlinked from hosts this site does not control.
+Every such image carries `data-fallback` pointing at the local schematic SVG,
+and `main.js` swaps it in on error — so a renamed file or hotlink protection
+degrades to artwork instead of a broken-image icon. Verified: with the remote
+hosts blocked, 11 images fell back cleanly and the console stayed silent.
+
+The URLs live in `data/categories.json` and `data/products.json`, not in
+JavaScript. An earlier version rewrote `img.src` at runtime, which cost a
+wasted request per card; removing that took `main.js` from 16.4 KB to 10.1 KB.
+
 ## Design notes
 
 **Palette — blue / white / black.** White, off-white and light grey surfaces
@@ -294,8 +341,12 @@ Checked in Chromium at 390 / 834 / 1440 px:
 - hero video autoplays on desktop and is never requested at 390 px (0 `<source>`
   elements, poster only)
 - every colour pair passes WCAG AA
-- no JavaScript or console errors (remote catalogue images cannot be fetched
-  from the development sandbox; that noise is excluded)
+- no JavaScript errors **or warnings** on either page, at 390 px and 1440 px
+  (remote catalogue image failures are excluded — the sandbox blocks those
+  hosts — as is the 404 page's own 404 navigation status)
+- 404 page renders correctly when served from any URL depth
+- JSON-LD parses, and asserts nothing fabricated: no rating, review, price,
+  FAQ or LocalBusiness claims
 
 ## Out of scope
 

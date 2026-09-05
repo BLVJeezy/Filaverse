@@ -990,6 +990,44 @@ a:hover { text-decoration: underline; }
 .fv-footer__legal { display: flex; flex-wrap: wrap; gap: var(--fv-s4); }
 
 /* --------------------------------------------------------------------------
+   19. Error page (404)
+   -------------------------------------------------------------------------- */
+.fv-error { max-width: 44rem; }
+.fv-error .fv-eyebrow { color: var(--fv-steel); }
+.fv-error h1 { font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.75rem); margin-bottom: var(--fv-s4); }
+.fv-error__lead { font-size: 1.08rem; color: var(--fv-muted); margin-bottom: var(--fv-s6); }
+.fv-error__cta { display: flex; flex-wrap: wrap; gap: var(--fv-s3); margin-bottom: var(--fv-s8); }
+
+.fv-error__links { border-top: 1px solid var(--fv-line); padding-top: var(--fv-s5); }
+.fv-error__links h2 {
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fv-muted);
+  margin-bottom: var(--fv-s3);
+}
+.fv-error__links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--fv-s1);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.fv-error__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--fv-navy);
+  font-weight: 600;
+}
+.fv-error__links a:hover { color: var(--fv-accent-dark); }
+
+/* The error page has no navigation to balance, so the footer stays minimal. */
+.fv-footer--slim { padding-block: var(--fv-s5); }
+.fv-footer--slim .fv-footer__bottom { border-top: 0; padding-top: 0; }
+
+/* --------------------------------------------------------------------------
    18. Reveal on scroll (progressive enhancement)
    -------------------------------------------------------------------------- */
 .js .fv-reveal {

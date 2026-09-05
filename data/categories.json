@@ -1,5 +1,5 @@
 {
-  "_comment": "Material categories shown in homepage section 'Kies het juiste filament'. The images are real Smart Print products matching each material. Only keep a category when the corresponding destination exists in the final shop.",
+  "_comment": "Material categories shown in homepage section 'Kies het juiste filament'. `image` is real Smart Print product photography; `fallback` is the local schematic SVG the browser swaps in if that hotlinked host fails.",
   "categories": [
     {
       "slug": "pla",
@@ -8,7 +8,8 @@
       "url": "/filament/pla",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg",
       "alt": "Smart Print PLA Cyan filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-pla-filament-placeholder.svg"
     },
     {
       "slug": "pla-plus",
@@ -17,7 +18,8 @@
       "url": "/filament/pla-plus",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg",
       "alt": "Smart Print PLA+ Black filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-pla-plus-filament-placeholder.svg"
     },
     {
       "slug": "petg",
@@ -26,7 +28,8 @@
       "url": "/filament/petg",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg",
       "alt": "Smart Print PETG Ocean Blue filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-petg-filament-placeholder.svg"
     },
     {
       "slug": "tpu",
@@ -35,7 +38,8 @@
       "url": "/filament/tpu",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg",
       "alt": "Smart Print TPU Orange filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-tpu-filament-placeholder.svg"
     },
     {
       "slug": "asa",
@@ -44,7 +48,8 @@
       "url": "/filament/asa",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s132-e1fg-s132-e1.jpg",
       "alt": "Smart Print ASA Black filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-asa-filament-placeholder.svg"
     },
     {
       "slug": "silk-specials",
@@ -53,7 +58,8 @@
       "url": "/filament/silk-specials",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s97-e1fg-s97-e1.jpg",
       "alt": "Smart Print Silk PLA Dual Color Red Blue filament 1,75 mm 1 kg",
-      "imagePlaceholder": false
+      "imagePlaceholder": false,
+      "fallback": "assets/img/category-silk-filament-placeholder.svg"
     }
   ]
 }

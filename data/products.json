@@ -25,7 +25,8 @@
       "url": "/filament/pla",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg",
       "alt": "Smart Print PLA Cyan filament 1,75 mm 1 kg",
-      "swatches": []
+      "swatches": [],
+      "fallback": "assets/img/product-placeholder-1.svg"
     },
     {
       "id": "FG-S46-E1",
@@ -43,7 +44,8 @@
       "url": "/filament/pla-plus",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg",
       "alt": "Smart Print PLA+ Black filament 1,75 mm 1 kg",
-      "swatches": []
+      "swatches": [],
+      "fallback": "assets/img/product-placeholder-2.svg"
     },
     {
       "id": "FG-S202-E1",
@@ -61,7 +63,8 @@
       "url": "/filament/petg",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg",
       "alt": "Smart Print PETG Ocean Blue filament 1,75 mm 1 kg",
-      "swatches": []
+      "swatches": [],
+      "fallback": "assets/img/product-placeholder-3.svg"
     },
     {
       "id": "FG-S123-E1",
@@ -79,7 +82,8 @@
       "url": "/filament/tpu",
       "image": "https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg",
       "alt": "Smart Print TPU Orange filament 1,75 mm 1 kg",
-      "swatches": []
+      "swatches": [],
+      "fallback": "assets/img/product-placeholder-4.svg"
     }
   ]
 }

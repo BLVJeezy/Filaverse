@@ -18,26 +18,39 @@
   <meta property="og:title" content="3D Filament, Printers &amp; Accessoires België | Filaverse">
   <meta property="og:description" content="Ontdek Filaverse filament, 3D-printers en accessoires voor makers, scholen en bedrijven. Shop PLA, PETG en meer, met persoonlijke service vanuit België.">
   <meta property="og:url" content="https://www.filaverse.be/">
-  <!-- TODO(assets): replace with a purpose-made 1200x630 Filaverse share image. -->
-  <meta property="og:image" content="https://www.filaverse.be/assets/img/hero-3d-print-poster.jpg">
+  <meta property="og:image" content="https://www.filaverse.be/assets/img/filaverse-social-share.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Filaverse — filament, 3D-printers en accessoires. PLA, PETG, TPU en ASA.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.filaverse.be/assets/img/filaverse-social-share.jpg">
+  <meta name="twitter:image:alt" content="Filaverse — filament, 3D-printers en accessoires. PLA, PETG, TPU en ASA.">
 
-  <meta name="theme-color" content="#10233d">
-  <link rel="icon" href="assets/img/filaverse-logo-placeholder.svg" type="image/svg+xml">
+  <!-- Icons. The .ico carries 16/32/48 for legacy chrome; the SVG is what
+       modern browsers actually use and stays crisp at any density. -->
+  <meta name="theme-color" content="#0f1a2b">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- The hero poster is the LCP paint: preloaded, never lazy-loaded. The
        video itself is preload="none" and only fetched once the poster is up,
        so it never competes with the LCP. -->
   <link rel="preload" as="image" href="assets/img/hero-3d-print-poster.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css?v=ff96fb1870">
+  <link rel="stylesheet" href="assets/css/styles.css?v=c8edbc868c">
 
   <!-- Swap the `no-js` class before first paint so reveal animations never
        hide content for users without JavaScript. -->
   <script>document.documentElement.classList.replace('no-js','js');</script>
 
   <!-- ====================================================================
-       Structured data — Organization + WebSite/SearchAction only.
+       Structured data — Organization + WebSite only.
        Deliberately no Review/AggregateRating: no verified rating data exists.
+       SearchAction is intentionally absent: /zoeken does not resolve yet, and
+       pointing Google at a 404 endpoint is worse than omitting the action.
+       Add it back with the real search URL once site search ships.
        TODO(business): confirm legal name, address, VAT/company number, phone,
        e-mail and social profiles before publishing; remove any field that
        cannot be verified rather than guessing.
@@ -51,7 +64,8 @@
         "@id": "https://www.filaverse.be/#organization",
         "name": "Filaverse",
         "url": "https://www.filaverse.be/",
-        "logo": "https://www.filaverse.be/assets/img/filaverse-logo-placeholder.svg",
+        "logo": "https://www.filaverse.be/assets/img/favicon-512.png",
+        "image": "https://www.filaverse.be/assets/img/filaverse-social-share.jpg",
         "description": "Filaverse levert 3D-printfilament, 3D-printers en accessoires aan makers, scholen en bedrijven in België.",
         "areaServed": "BE"
       },
@@ -61,15 +75,7 @@
         "url": "https://www.filaverse.be/",
         "name": "Filaverse",
         "inLanguage": "nl-BE",
-        "publisher": { "@id": "https://www.filaverse.be/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://www.filaverse.be/zoeken?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
+        "publisher": { "@id": "https://www.filaverse.be/#organization" }
       }
     ]
   }
@@ -292,7 +298,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg" alt="Smart Print PLA Cyan filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg" data-fallback="assets/img/category-pla-filament-placeholder.svg" alt="Smart Print PLA Cyan filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/pla">PLA</a></h3>
@@ -304,7 +310,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg" alt="Smart Print PLA+ Black filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg" data-fallback="assets/img/category-pla-plus-filament-placeholder.svg" alt="Smart Print PLA+ Black filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/pla-plus">PLA+</a></h3>
@@ -316,7 +322,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg" alt="Smart Print PETG Ocean Blue filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg" data-fallback="assets/img/category-petg-filament-placeholder.svg" alt="Smart Print PETG Ocean Blue filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/petg">PETG</a></h3>
@@ -328,7 +334,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg" alt="Smart Print TPU Orange filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg" data-fallback="assets/img/category-tpu-filament-placeholder.svg" alt="Smart Print TPU Orange filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/tpu">TPU</a></h3>
@@ -340,7 +346,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s132-e1fg-s132-e1.jpg" alt="Smart Print ASA Black filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s132-e1fg-s132-e1.jpg" data-fallback="assets/img/category-asa-filament-placeholder.svg" alt="Smart Print ASA Black filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/asa">ASA</a></h3>
@@ -352,7 +358,7 @@
           <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s97-e1fg-s97-e1.jpg" alt="Smart Print Silk PLA Dual Color Red Blue filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s97-e1fg-s97-e1.jpg" data-fallback="assets/img/category-silk-filament-placeholder.svg" alt="Smart Print Silk PLA Dual Color Red Blue filament 1,75 mm 1 kg" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="/filament/silk-specials">Silk &amp; specials</a></h3>
@@ -387,7 +393,7 @@
           <li>
             <article class="fv-card fv-product fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg" alt="Smart Print PLA Cyan filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s79-e1fg-s79-e1.jpg" data-fallback="assets/img/product-placeholder-1.svg" alt="Smart Print PLA Cyan filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">Smart Print</p>
@@ -404,7 +410,7 @@
           <li>
             <article class="fv-card fv-product fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg" alt="Smart Print PLA+ Black filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s46-e1fg-s46-e1.jpg" data-fallback="assets/img/product-placeholder-2.svg" alt="Smart Print PLA+ Black filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">Smart Print</p>
@@ -421,7 +427,7 @@
           <li>
             <article class="fv-card fv-product fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg" alt="Smart Print PETG Ocean Blue filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s202-e1fg-s202-e1.jpg" data-fallback="assets/img/product-placeholder-3.svg" alt="Smart Print PETG Ocean Blue filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">Smart Print</p>
@@ -438,7 +444,7 @@
           <li>
             <article class="fv-card fv-product fv-reveal">
               <div class="fv-card__media">
-                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg" alt="Smart Print TPU Orange filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
+                <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s123-e1fg-s123-e1.jpg" data-fallback="assets/img/product-placeholder-4.svg" alt="Smart Print TPU Orange filament 1,75 mm 1 kg" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">Smart Print</p>
@@ -473,8 +479,8 @@
         <div class="fv-grid-brands">
           <article class="fv-card fv-brand fv-reveal">
             <div class="fv-card__media">
-              <img src="assets/img/brand-filaverse-placeholder.svg"
-                   alt="Filamentspoelen van het merk Filaverse"
+              <img class="fv-photo" src="https://i0.wp.com/uptodatewebdesign.s3.eu-west-3.amazonaws.com/sites/995/images/5226e4a6b740eed5/w1024.jpg?resize=1024%2C1024&amp;ssl=1" data-fallback="assets/img/brand-filaverse-placeholder.svg"
+                   alt="Filaverse kleurenmixpakket met vijf Smart Print PLA rollen"
                    width="960" height="540" loading="lazy" decoding="async">
             </div>
             <div class="fv-brand__body">
@@ -491,8 +497,8 @@
 
           <article class="fv-card fv-brand fv-reveal">
             <div class="fv-card__media">
-              <img src="assets/img/brand-smart-print-placeholder.svg"
-                   alt="Filamentspoelen van het merk Smart Print"
+              <img class="fv-photo" src="https://b2b.smartprint24.com/_data/products/fg-s97-e1fg-s97-e1.jpg" data-fallback="assets/img/brand-smart-print-placeholder.svg"
+                   alt="Smart Print Silk PLA Dual Color Red Blue filament"
                    width="960" height="540" loading="lazy" decoding="async">
             </div>
             <div class="fv-brand__body">
@@ -599,8 +605,8 @@
             </div>
           </div>
           <div class="fv-b2b__media">
-            <img src="assets/img/b2b-volume-spoelen-placeholder.svg"
-                 alt="Meerdere filamentspoelen gestapeld voor een volumebestelling"
+            <img class="fv-photo" src="https://i0.wp.com/uptodatewebdesign.s3.eu-west-3.amazonaws.com/sites/995/images/5f30a5fc9380ce9e/w1024.jpg?resize=1024%2C1024&amp;ssl=1" data-fallback="assets/img/b2b-volume-spoelen-placeholder.svg"
+                   alt="Filaverse 4+1 Smart Print startpakket met vijf PLA rollen"
                  width="900" height="760" loading="lazy" decoding="async">
           </div>
         </div>
@@ -619,8 +625,8 @@
 
           <article class="fv-card fv-feature fv-reveal">
             <div class="fv-card__media">
-              <img src="assets/img/onderwijs-3d-printen-placeholder.svg"
-                   alt="3D-printer met filamentspoelen voor gebruik in de klas"
+              <img class="fv-photo" src="https://i0.wp.com/d2j6dbq0eux0bg.cloudfront.net/images/120416751/products/805521577/5494921973.jpg?resize=405%2C508&amp;ssl=1" data-fallback="assets/img/onderwijs-3d-printen-placeholder.svg"
+                   alt="Bambu Lab A1 3D-printer uit het Filaverse assortiment"
                    width="960" height="540" loading="lazy" decoding="async">
             </div>
             <div class="fv-feature__body">
@@ -876,6 +882,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=5389efa9ad" defer></script>
+  <script src="assets/js/main.js?v=c5c130276b" defer></script>
 </body>
 </html>

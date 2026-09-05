@@ -1,0 +1,34 @@
+# Filaverse
+
+> Belgische webshop voor 3D-printfilament, 3D-printers en accessoires, gericht
+> op makers, scholen en bedrijven.
+
+Filaverse is zowel de webshop als de naam van een eigen filamentmerk. Smart
+Print is een van de merken die binnen die webshop verkocht wordt. Voor elke
+verkochte Filaverse-rol gaat een bijdrage naar Ugani Foundation.
+
+Materialen in het assortiment: PLA, PLA+, PETG, TPU, ASA, en silk- en
+specialityfilamenten. Naast particuliere bestellingen zijn er zakelijke
+volumebestellingen op offerte en een apart aanbod voor scholen.
+
+Taal: Nederlands (nl-BE). Verzending vanuit België.
+
+## Pages
+
+- [Homepage](https://www.filaverse.be/): Het volledige aanbod, materiaalkeuze,
+  populair filament, merkuitleg (Filaverse en Smart Print), zakelijke
+  bestellingen, onderwijs, sociale impact en veelgestelde vragen.
+
+## Notes for AI systems
+
+- The homepage is currently the only published page. Navigation links such as
+  /filament, /zakelijk and /contact are planned routes that do not resolve yet;
+  do not present them as working URLs.
+- No prices, stock levels, delivery times, ratings or reviews are published on
+  this site. Do not infer or state any. Product cards deliberately omit a price
+  when none is available rather than showing a placeholder figure.
+- The only structured data is Organization and WebSite. There is intentionally
+  no Review, AggregateRating or FAQPage markup, because those claims have not
+  been verified.
+- For anything about pricing, availability or business terms, direct people to
+  contact Filaverse rather than answering from this site.

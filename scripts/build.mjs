@@ -41,6 +41,15 @@ const esc = (value) =>
  * be contained rather than cropped like the schematic placeholders. Marking it
  * in the markup keeps that treatment in CSS instead of inline styles.
  */
+/**
+ * Catalogue images are hotlinked from hosts this site does not control. If one
+ * fails, main.js swaps in the local schematic placeholder so the card shows
+ * artwork rather than a broken-image icon.
+ */
+function fallbackAttr(item) {
+  return item.fallback ? ` data-fallback="${esc(item.fallback)}"` : "";
+}
+
 function photoClass(item) {
   const remote = /^https?:/i.test(item.image || "");
   const real = item.imagePlaceholder === false || item.placeholder === false;
@@ -58,7 +67,7 @@ function categoryCard(cat) {
   return `          <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img class="${photoClass(cat)}" src="${esc(cat.image)}" alt="${esc(cat.alt)}" width="600" height="600" loading="lazy" decoding="async">
+                <img class="${photoClass(cat)}" src="${esc(cat.image)}"${fallbackAttr(cat)} alt="${esc(cat.alt)}" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="${esc(cat.url)}">${esc(cat.name)}</a></h3>
@@ -113,7 +122,7 @@ function productCard(product) {
   return `          <li>
             <article class="fv-card fv-product fv-reveal">
 ${badge}              <div class="fv-card__media">
-                <img class="${photoClass(product)}" src="${esc(product.image)}" alt="${esc(product.alt)}" width="800" height="800" loading="lazy" decoding="async">
+                <img class="${photoClass(product)}" src="${esc(product.image)}"${fallbackAttr(product)} alt="${esc(product.alt)}" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">${esc(product.brand)}</p>
@@ -147,14 +156,24 @@ function replaceBlock(html, name, content) {
  * CTA still in place. Appending a content hash gives changed files a new URL,
  * so the immutable header becomes true rather than a lie.
  */
-function version(html, filePath, attr) {
-  const hash = createHash("sha256")
+function contentHash(filePath) {
+  return createHash("sha256")
     .update(readFileSync(resolve(root, filePath)))
     .digest("hex")
     .slice(0, 10);
-  const re = new RegExp(`${attr}="${filePath}(\\?v=[a-f0-9]+)?"`, "g");
-  if (!re.test(html)) throw new Error(`Could not find ${attr}="${filePath}" in index.html`);
-  return html.replace(re, `${attr}="${filePath}?v=${hash}"`);
+}
+
+/**
+ * `pageFile` may reference the asset relatively (index.html, always served at
+ * the root) or absolutely (404.html, which Vercel serves for a URL at any
+ * depth, so a relative path there would resolve against the wrong directory).
+ * Match either form and keep whichever the page already uses.
+ */
+function version(html, filePath, attr, pageFile) {
+  const hash = contentHash(filePath);
+  const re = new RegExp(`${attr}="(/?)${filePath}(\\?v=[a-f0-9]+)?"`, "g");
+  if (!re.test(html)) throw new Error(`Could not find ${attr}="${filePath}" in ${pageFile}`);
+  return html.replace(re, (_m, slash) => `${attr}="${slash}${filePath}?v=${hash}"`);
 }
 
 const indexPath = resolve(root, "index.html");
@@ -164,10 +183,18 @@ html = replaceBlock(html, "categories", categories.map(categoryCard).join("\n"))
 html = replaceBlock(html, "products", productData.products.map(productCard).join("\n"));
 
 // Must run after the card blocks, so the hash covers the final files.
-html = version(html, "assets/css/styles.css", "href");
-html = version(html, "assets/js/main.js", "src");
+html = version(html, "assets/css/styles.css", "href", "index.html");
+html = version(html, "assets/js/main.js", "src", "index.html");
 
 writeFileSync(indexPath, html);
+
+// The error page shares the same stylesheet and script, so it needs the same
+// versioned URLs — an unversioned one would be pinned by the immutable cache.
+const errorPath = resolve(root, "404.html");
+let errorHtml = readFileSync(errorPath, "utf8");
+errorHtml = version(errorHtml, "assets/css/styles.css", "href", "404.html");
+errorHtml = version(errorHtml, "assets/js/main.js", "src", "404.html");
+writeFileSync(errorPath, errorHtml);
 
 const placeholders = productData.products.filter((p) => p.placeholder).length;
 console.log(
