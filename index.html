@@ -39,7 +39,7 @@
        video itself is preload="none" and only fetched once the poster is up,
        so it never competes with the LCP. -->
   <link rel="preload" as="image" href="assets/img/hero-3d-print-poster.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css?v=c8edbc868c">
+  <link rel="stylesheet" href="assets/css/styles.css?v=89c90e1142">
 
   <!-- Swap the `no-js` class before first paint so reveal animations never
        hide content for users without JavaScript. -->
@@ -225,14 +225,19 @@
          The video is decoration, not content: it is muted, has no audio track
          at all, carries aria-hidden, and every word is in the DOM as text. The
          poster frame is identical to the video's first frame, so there is no
-         flash when playback starts, and it is what mobile, reduced-motion and
+         flash when playback starts, and it is what reduced-motion and
          Save-Data visitors see instead of the video.
+
+         There is deliberately no `autoplay` attribute. It overrides
+         preload="none" and starts the download during parsing, before the
+         deferred script can decide whether the visitor wants the video at all.
+         main.js starts playback instead, which keeps that decision honest.
          ================================================================== -->
     <section class="fv-hero" aria-labelledby="fv-hero-title">
       <div class="fv-hero__bg" aria-hidden="true">
         <video class="fv-hero__video" data-fv-hero-video
                poster="assets/img/hero-3d-print-poster.jpg"
-               autoplay muted loop playsinline preload="none"
+               muted loop playsinline preload="none"
                tabindex="-1" disablepictureinpicture>
           <source src="assets/video/filaverse-hero-3d-print.webm" type="video/webm">
           <source src="assets/video/filaverse-hero-3d-print.mp4" type="video/mp4">
@@ -882,6 +887,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=c5c130276b" defer></script>
+  <script src="assets/js/main.js?v=6a2166e365" defer></script>
 </body>
 </html>

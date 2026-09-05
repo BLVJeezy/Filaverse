@@ -296,13 +296,51 @@ What was done to it:
 
 Loading rules, all in `main.js`:
 
-- Ships `preload="none"` — **not one byte is fetched** until the script decides
-  the video is welcome.
+- **It plays on every screen size, phones included.** Screen size is
+  deliberately not a reason to withhold it: at 424 KB the clip costs about what
+  two product photos cost.
 - Suppressed entirely (poster only, `<source>` elements removed) for
-  `prefers-reduced-motion`, `Save-Data`, 2G-class connections, and viewports
-  ≤700 px. Phones never pay for it.
+  `prefers-reduced-motion`, `Save-Data` and `slow-2g` — cases where the visitor
+  has actually asked to be spared it.
+- **There is no `autoplay` attribute, on purpose.** It overrides
+  `preload="none"` and starts the download during parsing, before the deferred
+  script can decide whether the visitor wants the video at all. Playback is
+  started from JavaScript instead. Verified: with Save-Data or slow-2g, zero
+  requests are made for the video files.
 - Pauses when scrolled out of view and when the tab is hidden.
-- A refused autoplay promise is caught, not fought — the poster simply stays.
+- A refused `play()` is caught, not fought: the poster stays, and one retry is
+  bound to the visitor's first interaction (iOS Low Power Mode refuses autoplay
+  outright, and a real gesture lifts that).
+
+Verified in Chromium **without** overriding the autoplay policy — so this is
+default browser behaviour, not a forced test — at 1440, 1280 and 834 px and on
+emulated iPhone 13, iPhone SE and Pixel 5: playing in every case, with the
+video covering the hero exactly.
+
+**Not verified: real iOS Safari.** Only Chromium is available in this
+environment and the WebKit download is blocked, so iPhone results above are
+Chromium with an iPhone viewport and user-agent, not WebKit. The markup follows
+what WebKit requires for muted inline playback — `muted` and `playsinline`
+present before `play()`, no audio track in the file, a visible element — and the
+gesture retry covers Low Power Mode. Worth one real-device check.
+
+### Text over the video
+
+The mobile hero crops the 16:9 clip hard to portrait, so readability was
+measured rather than eyeballed: every frame was cropped as the browser crops
+it, and the brightest text-sized region in the whole clip (98.8/255) was
+composited with the scrim. Against that worst case the heading sits at 11.2:1
+and the lead paragraph at 8.1:1.
+
+That measurement caught a real regression: lightening the mobile scrim dropped
+the eyebrow and hero USP icons — `--fv-accent-light`, fine at 4.94:1 on solid
+navy — to **3.16:1 over the video**, below AA. They now use `--fv-on-video`
+(`#9cc4ef`, 6.15:1). The two tokens exist separately because the same blue
+behaves differently over a solid panel and over footage.
+
+Note that with `object-fit: cover` in a portrait hero the clip overflows
+horizontally only (942 px at iPhone 13, 0 px vertically), so the vertical half
+of `object-position` has no effect there.
 
 The poster, not the video, is the LCP paint: it is preloaded with
 `fetchpriority="high"`, and the video is fetched only afterwards so the two
@@ -312,8 +350,14 @@ never compete.
 legible in several frames.** The grade makes it much less prominent, but it is
 still another company's trademark on the Filaverse homepage. Confirm this is
 intended — it is defensible if Filaverse stocks Bambu Lab printers, and a
-problem if not. Swapping in different footage means re-running the pipeline in
-`scripts/` (the exact ffmpeg filter chain is recorded in the commit message).
+problem if not.
+
+Cropping does not fix it. Comparing five `object-position` values on frozen
+frames showed the wordmark's visibility depends on the moment in the clip, not
+on the crop, so no crop was applied: it would have looked like a fix without
+being one. The real options are different footage, or accepting the branding.
+Swapping footage means re-running the pipeline (the exact ffmpeg filter chain is
+in the commit history).
 
 **Mobile.** Designed, not stacked. The primary CTA sits ~527 px down a 844 px
 viewport. Categories become a 2-column grid, bestsellers a snap-scrolling

@@ -204,40 +204,71 @@
   /* ------------------------------------------------------------------
    * Hero background video
    *
-   * The markup ships with preload="none" and no bytes are fetched until this
-   * decides the video is welcome. It is suppressed entirely — poster only —
-   * when the visitor prefers reduced motion, has Save-Data on, is on a slow
-   * or metered connection, or is on a small screen where a background video
-   * is a waste of their data.
+   * Plays on every screen size, phones included. It is suppressed — leaving
+   * the poster, which is a perfectly good hero — only when the visitor has
+   * actually asked for that: prefers-reduced-motion, Save-Data, or a
+   * slow-2g connection. Screen size is deliberately NOT a reason: at
+   * 424 KB (WebM) the clip costs about what two product photos cost.
    *
-   * Autoplay can still be refused by the browser (low battery, iOS Low Power
-   * Mode, a user setting). That is handled, not fought: the promise rejection
-   * simply leaves the poster in place.
+   * The markup carries no `autoplay` attribute on purpose: it overrides
+   * preload="none" and begins the download during parsing, before this
+   * deferred script can decide whether the visitor wants the video at all.
+   * Playback is started here instead.
+   *
+   * Muted inline playback needs, on iOS especially: muted and playsinline set
+   * before play() is called, no audio track in the file (ours has none), and a
+   * visible element. Even then iOS Low Power Mode refuses it outright, so a
+   * refusal is caught and retried once on the visitor's first interaction.
    * ------------------------------------------------------------------ */
   (function heroVideo() {
     var video = document.querySelector("[data-fv-hero-video]");
     if (!video) return;
 
     var conn = navigator.connection || {};
-    var slow = /2g/.test(conn.effectiveType || "");
-    var smallScreen = window.matchMedia("(max-width: 700px)").matches;
+    var verySlow = (conn.effectiveType || "") === "slow-2g";
 
-    if (reduceMotion || conn.saveData || slow || smallScreen) {
-      // Poster only. Drop the sources so no request is ever made for them.
-      video.removeAttribute("autoplay");
+    if (reduceMotion || conn.saveData || verySlow) {
+      // Poster only, and genuinely no download: the markup carries no
+      // `autoplay` attribute and preload="none", so nothing is fetched unless
+      // load() is called. Drop the sources as well and never call it.
       while (video.firstChild) video.removeChild(video.firstChild);
-      video.load();
       return;
     }
 
+    // Belt and braces for iOS: the attributes are in the markup, but some
+    // WebKit versions only honour muted autoplay when the properties are set
+    // too. defaultMuted keeps it muted across a load().
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
     video.preload = "auto";
     video.load();
+
+    var retryBound = false;
+
+    function bindGestureRetry() {
+      if (retryBound) return;
+      retryBound = true;
+      // iOS Low Power Mode refuses autoplay outright. A single real
+      // interaction lifts that, so try once more then stop listening.
+      ["touchstart", "pointerdown", "keydown", "scroll"].forEach(function (evt) {
+        window.addEventListener(evt, onGesture, { once: true, passive: true });
+      });
+    }
+
+    function onGesture() {
+      if (video.paused) play();
+    }
 
     function play() {
       var attempt = video.play();
       if (attempt && typeof attempt.catch === "function") {
         attempt.catch(function () {
-          /* Autoplay refused — the poster stays, which is a fine hero. */
+          // Refused. The poster stays, and we wait for a gesture.
+          bindGestureRetry();
         });
       }
     }

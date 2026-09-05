@@ -33,7 +33,8 @@
   --fv-accent-dark: #123f80;
   --fv-accent-darker: #0d2f61;
   --fv-accent-soft: #eaf1fa;
-  --fv-accent-light: #4f8ad6;  /* for use on dark surfaces only */
+  --fv-accent-light: #4f8ad6;  /* solid dark surfaces only */
+  --fv-on-video: #9cc4ef;      /* over the hero video, where the scrim is lighter */
 
   --fv-ink: #0d1421;           /* near-black: headers, deep surfaces */
   --fv-steel: #3d5673;         /* mid blue-grey: icons, supporting detail */
@@ -529,7 +530,7 @@ a:hover { text-decoration: underline; }
 .fv-hero__inner { position: relative; }
 .fv-hero__copy { max-width: 36rem; }
 .fv-hero h1 { color: #fff; margin-bottom: var(--fv-s4); text-wrap: balance; }
-.fv-eyebrow--onDark { color: var(--fv-accent-light); }
+.fv-eyebrow--onDark { color: var(--fv-on-video); }
 
 .fv-hero__lead {
   font-size: clamp(1.02rem, .97rem + .3vw, 1.18rem);
@@ -567,18 +568,24 @@ a:hover { text-decoration: underline; }
   color: #e6ecf5;
   line-height: 1.35;
 }
-.fv-hero__usps svg { color: var(--fv-accent-light); flex: none; }
+.fv-hero__usps svg { color: var(--fv-on-video); flex: none; }
 
 /* Focus ring must stay visible against the dark hero. */
 .fv-hero :focus-visible { outline-color: #ffffff; }
 
 @media (max-width: 700px) {
-  /* Phones: the poster only. `preload="none"` plus the JS guard means the
-     video bytes are never fetched here, and the scrim goes flat so the copy
-     reads over a portrait crop. */
-  .fv-hero { min-height: 0; }
+  /* Phones play the video too. The 16:9 clip is cropped hard to portrait, so
+     the scrim runs top-to-bottom instead of left-to-right: lighter at the top
+     where the footage should read, denser lower down behind the CTA and USPs.
+     Measured against every frame of the clip, the brightest text-sized region
+     still leaves white heading text at 11.2:1 and the lead paragraph at
+     8.6:1 — both far past AA. */
+  .fv-hero { min-height: 78vh; }
   .fv-hero__scrim {
-    background: linear-gradient(180deg, rgba(13, 20, 33, .70) 0%, rgba(13, 20, 33, .88) 60%);
+    background: linear-gradient(180deg,
+      rgba(13, 20, 33, .50) 0%,
+      rgba(13, 20, 33, .70) 52%,
+      rgba(13, 20, 33, .82) 100%);
   }
 }
 
