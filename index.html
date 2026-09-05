@@ -18,15 +18,17 @@
   <meta property="og:title" content="3D Filament, Printers &amp; Accessoires België | Filaverse">
   <meta property="og:description" content="Ontdek Filaverse filament, 3D-printers en accessoires voor makers, scholen en bedrijven. Shop PLA, PETG en meer, met persoonlijke service vanuit België.">
   <meta property="og:url" content="https://www.filaverse.be/">
-  <!-- TODO(assets): replace with a real 1200x630 Filaverse share image. -->
-  <meta property="og:image" content="https://www.filaverse.be/assets/img/hero-filament-spoelen-placeholder.svg">
+  <!-- TODO(assets): replace with a purpose-made 1200x630 Filaverse share image. -->
+  <meta property="og:image" content="https://www.filaverse.be/assets/img/hero-3d-print-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
   <meta name="theme-color" content="#10233d">
   <link rel="icon" href="assets/img/filaverse-logo-placeholder.svg" type="image/svg+xml">
 
-  <!-- The hero image is the LCP element: preloaded, never lazy-loaded. -->
-  <link rel="preload" as="image" href="assets/img/hero-filament-spoelen-placeholder.svg" fetchpriority="high">
+  <!-- The hero poster is the LCP paint: preloaded, never lazy-loaded. The
+       video itself is preload="none" and only fetched once the poster is up,
+       so it never competes with the LCP. -->
+  <link rel="preload" as="image" href="assets/img/hero-3d-print-poster.jpg" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <!-- Swap the `no-js` class before first paint so reveal animations never
@@ -212,55 +214,59 @@
   <main id="main">
 
     <!-- ==================================================================
-         3. HERO — the single H1 of the page.
+         3. HERO — the single H1 of the page, over a looping video background.
+
+         The video is decoration, not content: it is muted, has no audio track
+         at all, carries aria-hidden, and every word is in the DOM as text. The
+         poster frame is identical to the video's first frame, so there is no
+         flash when playback starts, and it is what mobile, reduced-motion and
+         Save-Data visitors see instead of the video.
          ================================================================== -->
     <section class="fv-hero" aria-labelledby="fv-hero-title">
-      <div class="fv-container">
-        <div class="fv-hero__grid">
-          <div class="fv-hero__copy">
-            <p class="fv-eyebrow">3D-printen zonder gedoe</p>
-            <h1 id="fv-hero-title">Filament, 3D-printers &amp; accessoires voor betere prints</h1>
-            <p class="fv-hero__lead">
-              Ontdek kwalitatief filament en 3D-printoplossingen voor makers, scholen en bedrijven.
-              Van eenvoudige PLA-prints tot technische toepassingen en grotere bestellingen.
-            </p>
+      <div class="fv-hero__bg" aria-hidden="true">
+        <video class="fv-hero__video" data-fv-hero-video
+               poster="assets/img/hero-3d-print-poster.jpg"
+               autoplay muted loop playsinline preload="none"
+               tabindex="-1" disablepictureinpicture>
+          <source src="assets/video/filaverse-hero-3d-print.webm" type="video/webm">
+          <source src="assets/video/filaverse-hero-3d-print.mp4" type="video/mp4">
+        </video>
+        <span class="fv-hero__scrim"></span>
+      </div>
 
-            <div class="fv-hero__cta">
-              <a class="fv-btn fv-btn--primary fv-btn--lg" href="/filament">Shop filament</a>
-              <a class="fv-btn fv-btn--secondary fv-btn--lg" href="/zakelijk">Zakelijk bestellen</a>
-              <a class="fv-textlink" href="#hulp-bij-kiezen">
-                Hulp bij kiezen
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-            </div>
+      <div class="fv-container fv-hero__inner">
+        <div class="fv-hero__copy">
+          <p class="fv-eyebrow fv-eyebrow--onDark">3D-printen zonder gedoe</p>
+          <h1 id="fv-hero-title">Filament, 3D-printers &amp; accessoires voor betere prints</h1>
+          <p class="fv-hero__lead">
+            Ontdek kwalitatief filament en 3D-printoplossingen voor makers, scholen en bedrijven.
+            Van eenvoudige PLA-prints tot technische toepassingen en grotere bestellingen.
+          </p>
 
-            <!-- TODO(business): verify all three USPs before publishing. -->
-            <ul class="fv-hero__usps">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
-                Duidelijke specificaties
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-                Verzending vanuit België
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
-                Persoonlijk advies
-              </li>
-            </ul>
+          <div class="fv-hero__cta">
+            <a class="fv-btn fv-btn--primary fv-btn--lg" href="/filament">Shop filament</a>
+            <a class="fv-btn fv-btn--onDark fv-btn--lg" href="/zakelijk">Zakelijk bestellen</a>
+            <a class="fv-textlink fv-textlink--onDark" href="#hulp-bij-kiezen">
+              Hulp bij kiezen
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
 
-          <div class="fv-hero__media">
-            <!-- LCP image: eager, high priority, explicit dimensions (no CLS).
-                 TODO(assets): replace with an optimised Filaverse photo
-                 (AVIF/WebP + srcset) of several spools, one Filaverse spool
-                 prominent, plus one or two printed objects. -->
-            <img src="assets/img/hero-filament-spoelen-placeholder.svg"
-                 alt="Verschillende filamentspoelen in meerdere kleuren naast een 3D-geprint object"
-                 width="1200" height="740"
-                 fetchpriority="high" decoding="async">
-          </div>
+          <!-- TODO(business): verify all three USPs before publishing. -->
+          <ul class="fv-hero__usps">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+              Duidelijke specificaties
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+              Verzending vanuit België
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
+              Persoonlijk advies
+            </li>
+          </ul>
         </div>
       </div>
     </section>

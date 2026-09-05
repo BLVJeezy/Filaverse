@@ -58,6 +58,8 @@ assets/css/styles.css       One stylesheet. Design tokens at the top.
 assets/js/main.js           Drawer, search panel, accordion, scroll reveal.
                             Progressive enhancement only.
 assets/img/*-placeholder.svg  Temporary assets — see "Placeholders".
+assets/img/hero-3d-print-poster.*  Hero poster / mobile fallback.
+assets/video/               Hero background video (MP4 + WebM).
 data/site.json              Every outbound URL the homepage uses.
 data/categories.json        Material categories.
 data/products.json          Homepage bestsellers.
@@ -129,30 +131,86 @@ Everything below is marked `TODO(...)` in the source.
 ### `TODO(assets)` — real imagery
 All `assets/img/*-placeholder.svg` files are schematic SVG illustrations, drawn
 from scratch and clearly labelled `PLACEHOLDER` in the artwork itself. No
-competitor imagery was used anywhere. Replace with real Filaverse photography,
-and swap the accent hex values at the top of `styles.css` for the official
-brand colours.
+competitor imagery was used anywhere. Replace with real Filaverse photography.
 
-The hero image is the LCP element: preloaded, `fetchpriority="high"`, never
-lazy-loaded. Keep those attributes on the replacement and add
-`srcset`/`sizes` with AVIF or WebP sources.
+**The logo file has not been supplied.** `filaverse-logo-placeholder.svg` is a
+stand-in wordmark built to the described blue/white/black scheme. Drop in the
+real logo and set `--fv-accent` to its blue.
+
+The hero poster is the LCP paint: preloaded, `fetchpriority="high"`, never
+lazy-loaded. Keep those attributes on any replacement.
 
 ---
 
 ## Design notes
 
-**Palette.** White / off-white / light grey surfaces, deep-navy text. Orange is
-reserved for the primary purchase CTA, badges and active states; teal and blue
-carry secondary actions, icons and supporting information. No gradients beyond
-one flat hero wash, no glassmorphism.
+**Palette — blue / white / black.** White, off-white and light grey surfaces
+with near-black text. A single brand blue (`--fv-accent`) carries the primary
+purchase CTA, badges and active states; a muted blue-grey (`--fv-steel`) carries
+icons and supporting detail. **There is no orange anywhere.** The old
+`--fv-orange*` / `--fv-teal*` token names survive as aliases onto the blue ramp,
+so any component still referencing them stays on-palette instead of silently
+reintroducing orange.
 
-**Performance.** No framework, no animation library, no web fonts, no video.
-One stylesheet, one deferred ~5 KB script. All below-fold images lazy-load with
-explicit `width`/`height` so there is no layout shift.
+Retinting the whole page is a one-line change: replace `--fv-accent` at the top
+of `styles.css` with the exact blue from the logo file — everything else derives
+from it. All foreground/background pairs were contrast-checked and pass WCAG AA
+(lowest is 4.94:1, the light blue accent on the dark hero).
+
+**Performance.** No framework, no animation library, no web fonts. One
+stylesheet, one deferred ~6 KB script. All below-fold images lazy-load with
+explicit `width`/`height` so there is no layout shift. The hero video is
+budgeted rather than assumed — see below.
 
 **Motion.** Micro-interactions only, 150–350 ms: cards lift, images scale
 slightly, arrows nudge, sections fade up once on entry. All of it is disabled
 under `prefers-reduced-motion`.
+
+### Hero background video
+
+`assets/video/filaverse-hero-3d-print.{mp4,webm}` — a looping, silent,
+colour-graded clip of a 3D printer at work, sitting behind the hero copy.
+
+The brief's performance section advises against background video. It is here
+because it was explicitly requested, so it is budgeted rather than assumed:
+
+| | |
+|---|---|
+| Source | 8.1 MB, 1920×1080, 8.3 s, with an audio track |
+| Shipped | **634 KB** MP4 + **424 KB** WebM, 1280×720, 6.87 s, no audio stream |
+| Poster | 48 KB JPG (28 KB WebP), identical to frame 1 |
+
+What was done to it:
+
+- **Trimmed.** The last 25 frames were a flat grey end card, which would have
+  produced a visible jolt on every loop.
+- **Crossfaded.** The final 0.6 s dissolves into the opening frames, so the loop
+  has no cut at all.
+- **Colour-graded** to full desaturation plus a cool blue cast. This matches the
+  blue/white/black palette and removes the orange that was in the original
+  footage (the printer's "CAUTION HOT" label and vendor logo).
+- **Audio stripped**, so autoplay is never blocked on that basis.
+
+Loading rules, all in `main.js`:
+
+- Ships `preload="none"` — **not one byte is fetched** until the script decides
+  the video is welcome.
+- Suppressed entirely (poster only, `<source>` elements removed) for
+  `prefers-reduced-motion`, `Save-Data`, 2G-class connections, and viewports
+  ≤700 px. Phones never pay for it.
+- Pauses when scrolled out of view and when the tab is hidden.
+- A refused autoplay promise is caught, not fought — the poster simply stays.
+
+The poster, not the video, is the LCP paint: it is preloaded with
+`fetchpriority="high"`, and the video is fetched only afterwards so the two
+never compete.
+
+**⚠️ The footage is of a Bambu Lab printer, and the "Bambu Lab" wordmark is
+legible in several frames.** The grade makes it much less prominent, but it is
+still another company's trademark on the Filaverse homepage. Confirm this is
+intended — it is defensible if Filaverse stocks Bambu Lab printers, and a
+problem if not. Swapping in different footage means re-running the pipeline in
+`scripts/` (the exact ffmpeg filter chain is recorded in the commit message).
 
 **Mobile.** Designed, not stacked. The primary CTA sits ~527 px down a 844 px
 viewport. Categories become a 2-column grid, bestsellers a snap-scrolling
@@ -177,6 +235,9 @@ Checked in Chromium at 390 / 834 / 1440 px:
 - no interactive target under 44 px on mobile
 - category, product and help cards clickable across their whole surface
 - drawer, search panel and accordion all keyboard-operable
+- hero video autoplays on desktop and is never requested at 390 px (0 `<source>`
+  elements, poster only)
+- every colour pair passes WCAG AA
 
 ## Out of scope
 

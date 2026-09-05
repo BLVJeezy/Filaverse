@@ -321,6 +321,67 @@
   })();
 
   /* ------------------------------------------------------------------
+   * Hero background video
+   *
+   * The markup ships with preload="none" and no bytes are fetched until this
+   * decides the video is welcome. It is suppressed entirely — poster only —
+   * when the visitor prefers reduced motion, has Save-Data on, is on a slow
+   * or metered connection, or is on a small screen where a background video
+   * is a waste of their data.
+   *
+   * Autoplay can still be refused by the browser (low battery, iOS Low Power
+   * Mode, a user setting). That is handled, not fought: the promise rejection
+   * simply leaves the poster in place.
+   * ------------------------------------------------------------------ */
+  (function heroVideo() {
+    var video = document.querySelector("[data-fv-hero-video]");
+    if (!video) return;
+
+    var conn = navigator.connection || {};
+    var slow = /2g/.test(conn.effectiveType || "");
+    var smallScreen = window.matchMedia("(max-width: 700px)").matches;
+
+    if (reduceMotion || conn.saveData || slow || smallScreen) {
+      // Poster only. Drop the sources so no request is ever made for them.
+      video.removeAttribute("autoplay");
+      while (video.firstChild) video.removeChild(video.firstChild);
+      video.load();
+      return;
+    }
+
+    video.preload = "auto";
+    video.load();
+
+    function play() {
+      var attempt = video.play();
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch(function () {
+          /* Autoplay refused — the poster stays, which is a fine hero. */
+        });
+      }
+    }
+
+    // Don't spend decode time on a hero the visitor has scrolled past.
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) play();
+          else video.pause();
+        });
+      }, { threshold: 0.1 });
+      io.observe(video);
+    } else {
+      play();
+    }
+
+    // Background tabs shouldn't keep decoding frames.
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) video.pause();
+      else if (video.getBoundingClientRect().bottom > 0) play();
+    });
+  })();
+
+  /* ------------------------------------------------------------------
    * Footer year
    * ------------------------------------------------------------------ */
   (function year() {

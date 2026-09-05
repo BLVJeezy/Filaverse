@@ -17,24 +17,39 @@
   --fv-line-strong: #cfd6e0;
 
   /* Text — deep navy / dark charcoal */
-  --fv-navy: #10233d;
-  --fv-charcoal: #232a33;
+  --fv-navy: #0f1a2b;
+  --fv-charcoal: #1c2430;
   --fv-muted: #5c6875;
   --fv-muted-soft: #7d8896;
 
-  /* Accents.
-     TODO(brand): replace with the exact Filaverse brand hex values from the
-     official brand guide. These are close approximations of the Filaverse
-     orange / teal / dark blue and are used consistently through the page. */
-  --fv-orange: #e8622a;        /* main purchase CTA, important badges, active */
-  --fv-orange-dark: #cc4f1c;
-  --fv-orange-soft: #fdf0e9;
-  --fv-teal: #0f8a90;          /* secondary actions, accents, icons */
-  --fv-teal-dark: #0b6a6f;
-  --fv-teal-soft: #e7f4f4;
-  --fv-blue: #1b4b86;          /* supporting information, B2B */
-  --fv-blue-dark: #143a68;
-  --fv-blue-soft: #eaf0f8;
+  /* Accents — blue / white / black, per the Filaverse logo. No orange.
+     TODO(brand): replace --fv-accent with the exact blue from the logo file.
+     Everything else is derived from it, so one value re-tints the whole page.
+
+     The old token names are kept as aliases at the end of this block so any
+     markup or future component still referring to them stays on-palette
+     instead of silently reintroducing orange. */
+  --fv-accent: #1b56a8;        /* main purchase CTA, badges, active elements */
+  --fv-accent-dark: #123f80;
+  --fv-accent-darker: #0d2f61;
+  --fv-accent-soft: #eaf1fa;
+  --fv-accent-light: #4f8ad6;  /* for use on dark surfaces only */
+
+  --fv-ink: #0d1421;           /* near-black: headers, deep surfaces */
+  --fv-steel: #3d5673;         /* mid blue-grey: icons, supporting detail */
+  --fv-steel-soft: #eef2f7;
+  --fv-accent-soft-border: #cfdcee;
+
+  /* Aliases — no orange anywhere. */
+  --fv-orange: var(--fv-accent);
+  --fv-orange-dark: var(--fv-accent-dark);
+  --fv-orange-soft: var(--fv-accent-soft);
+  --fv-teal: var(--fv-steel);
+  --fv-teal-dark: var(--fv-accent-dark);
+  --fv-teal-soft: var(--fv-steel-soft);
+  --fv-blue: var(--fv-accent);
+  --fv-blue-dark: var(--fv-accent-dark);
+  --fv-blue-soft: var(--fv-accent-soft);
 
   /* Typography — system stack: zero network cost, excellent LCP */
   --fv-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -179,7 +194,7 @@ a:hover { text-decoration: underline; }
   color: var(--fv-teal-dark);
   margin-bottom: var(--fv-s3);
 }
-.fv-eyebrow--accent { color: var(--fv-orange); }
+.fv-eyebrow--accent { color: var(--fv-accent-light); }
 
 /* --------------------------------------------------------------------------
    4. Buttons
@@ -207,7 +222,7 @@ a:hover { text-decoration: underline; }
 .fv-btn:hover { text-decoration: none; transform: translateY(-1px); }
 .fv-btn:active { transform: translateY(0); }
 
-/* Primary purchase CTA — orange, visually dominant */
+/* Primary purchase CTA — solid brand blue, visually dominant */
 .fv-btn--primary {
   background: var(--fv-orange);
   color: #fff;
@@ -215,13 +230,13 @@ a:hover { text-decoration: underline; }
 }
 .fv-btn--primary:hover { background: var(--fv-orange-dark); box-shadow: var(--fv-shadow-md); }
 
-/* Secondary — teal/blue outline */
+/* Secondary — outlined, quieter than the primary CTA */
 .fv-btn--secondary {
   background: var(--fv-white);
   color: var(--fv-navy);
   border-color: var(--fv-line-strong);
 }
-.fv-btn--secondary:hover { border-color: var(--fv-teal); color: var(--fv-teal-dark); }
+.fv-btn--secondary:hover { border-color: var(--fv-accent); color: var(--fv-accent-dark); }
 
 .fv-btn--onDark {
   background: rgba(255,255,255,.10);
@@ -277,7 +292,7 @@ a:hover { text-decoration: underline; }
   gap: var(--fv-s2);
   white-space: nowrap;
 }
-.fv-utility svg { color: var(--fv-orange); flex: none; }
+.fv-utility svg { color: var(--fv-accent-light); flex: none; }
 
 @media (max-width: 900px) {
   /* Keep the top of the page light on small screens: one benefit, and no
@@ -468,26 +483,60 @@ a:hover { text-decoration: underline; }
 .fv-drawer__list--secondary a { font-weight: 550; font-size: .95rem; min-height: 46px; color: var(--fv-muted); }
 
 /* --------------------------------------------------------------------------
-   7. Hero
+   7. Hero — looping video background
    -------------------------------------------------------------------------- */
 .fv-hero {
-  background:
-    linear-gradient(180deg, var(--fv-offwhite) 0%, var(--fv-white) 100%);
-  border-bottom: 1px solid var(--fv-line);
-  padding-block: clamp(2rem, 1.4rem + 3vw, 4.25rem);
-}
-.fv-hero__grid {
-  display: grid;
-  gap: clamp(2rem, 1rem + 4vw, 3.5rem);
+  position: relative;
+  isolation: isolate;
+  background: var(--fv-ink);          /* painted before the poster loads */
+  color: #fff;
+  overflow: hidden;
+  display: flex;
   align-items: center;
+  min-height: clamp(560px, 78vh, 780px);
+  padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
 }
+
+.fv-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* The poster is set on the <video>, so it shows before playback and whenever
+   the video is suppressed — no separate <img> and no second request. */
+.fv-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Readability scrim. Darker on the copy side, so the footage stays visible on
+   the right while the text keeps a solid contrast floor. */
+.fv-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg,
+      rgba(13, 20, 33, .92) 0%,
+      rgba(13, 20, 33, .84) 36%,
+      rgba(13, 20, 33, .52) 66%,
+      rgba(13, 20, 33, .34) 100%),
+    linear-gradient(180deg, rgba(13, 20, 33, .35) 0%, rgba(13, 20, 33, 0) 30%);
+}
+
+.fv-hero__inner { position: relative; }
 .fv-hero__copy { max-width: 36rem; }
-.fv-hero h1 { margin-bottom: var(--fv-s4); }
+.fv-hero h1 { color: #fff; margin-bottom: var(--fv-s4); text-wrap: balance; }
+.fv-eyebrow--onDark { color: var(--fv-accent-light); }
+
 .fv-hero__lead {
   font-size: clamp(1.02rem, .97rem + .3vw, 1.18rem);
-  color: var(--fv-muted);
+  color: #d3dcea;
   margin-bottom: var(--fv-s6);
 }
+
 .fv-hero__cta {
   display: flex;
   flex-wrap: wrap;
@@ -495,11 +544,14 @@ a:hover { text-decoration: underline; }
   gap: var(--fv-s3);
   margin-bottom: var(--fv-s6);
 }
+.fv-textlink--onDark { color: #cfdcf0; }
+.fv-textlink--onDark:hover { color: #fff; }
+
 .fv-hero__usps {
   list-style: none;
   margin: 0;
   padding: var(--fv-s5) 0 0;
-  border-top: 1px solid var(--fv-line);
+  border-top: 1px solid rgba(255, 255, 255, .18);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
   gap: var(--fv-s4);
@@ -512,20 +564,28 @@ a:hover { text-decoration: underline; }
   overflow-wrap: anywhere;
   font-size: .88rem;
   font-weight: 600;
-  color: var(--fv-navy);
+  color: #e6ecf5;
   line-height: 1.35;
 }
-.fv-hero__usps svg { color: var(--fv-teal); flex: none; }
+.fv-hero__usps svg { color: var(--fv-accent-light); flex: none; }
 
-.fv-hero__media { position: relative; }
-.fv-hero__media img {
-  width: 100%;
-  border-radius: var(--fv-r-lg);
-  background: var(--fv-grey-50);
+/* Focus ring must stay visible against the dark hero. */
+.fv-hero :focus-visible { outline-color: #ffffff; }
+
+@media (max-width: 700px) {
+  /* Phones: the poster only. `preload="none"` plus the JS guard means the
+     video bytes are never fetched here, and the scrim goes flat so the copy
+     reads over a portrait crop. */
+  .fv-hero { min-height: 0; }
+  .fv-hero__scrim {
+    background: linear-gradient(180deg, rgba(13, 20, 33, .70) 0%, rgba(13, 20, 33, .88) 60%);
+  }
 }
 
-@media (min-width: 900px) {
-  .fv-hero__grid { grid-template-columns: 45fr 55fr; }
+@media (prefers-reduced-motion: reduce) {
+  /* Motion is suppressed in JS too; this keeps the frame if the video is
+     already in the DOM. */
+  .fv-hero__video { animation: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -788,7 +848,7 @@ a:hover { text-decoration: underline; }
 .fv-b2b p { color: #b9c6d9; max-width: 34rem; }
 .fv-b2b__list { list-style: none; margin: 0 0 var(--fv-s6); padding: 0; display: grid; gap: var(--fv-s2); }
 .fv-b2b__list li { display: flex; gap: var(--fv-s3); align-items: flex-start; font-size: .95rem; color: #d5dfec; }
-.fv-b2b__list svg { color: var(--fv-orange); flex: none; margin-top: 4px; }
+.fv-b2b__list svg { color: var(--fv-accent-light); flex: none; margin-top: 4px; }
 .fv-b2b__cta { display: flex; flex-wrap: wrap; gap: var(--fv-s3); }
 .fv-b2b__media { min-height: 240px; }
 .fv-b2b__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -809,7 +869,7 @@ a:hover { text-decoration: underline; }
 .fv-feature__list svg { color: var(--fv-teal); flex: none; margin-top: 4px; }
 .fv-feature__cta { margin-top: auto; }
 
-.fv-impact { background: var(--fv-teal-soft); border-color: #c9e4e4; }
+.fv-impact { background: var(--fv-teal-soft); border-color: var(--fv-accent-soft-border); }
 .fv-impact .fv-why__icon { background: #fff; }
 .fv-impact__figure {
   display: flex;
@@ -817,7 +877,7 @@ a:hover { text-decoration: underline; }
   gap: var(--fv-s3);
   padding: var(--fv-s4) var(--fv-s5);
   background: #fff;
-  border: 1px solid #c9e4e4;
+  border: 1px solid var(--fv-accent-soft-border);
   border-radius: var(--fv-r-md);
   margin-bottom: var(--fv-s5);
 }
