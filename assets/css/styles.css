@@ -614,6 +614,16 @@ a:hover { text-decoration: underline; }
 }
 .fv-card__body { padding: var(--fv-s5); display: flex; flex-direction: column; flex: 1; }
 
+/* Real catalogue photography: product cut-outs on white. Contained, not
+   cropped, so spools are never sliced by the card's aspect ratio. Mirrors the
+   treatment applied at runtime to the remaining remote images in main.js. */
+.fv-card__media img.fv-photo {
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  padding: 6%;
+}
+
 /* --------------------------------------------------------------------------
    9. Category (material) cards
    -------------------------------------------------------------------------- */

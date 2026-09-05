@@ -128,7 +128,30 @@ Everything below is marked `TODO(...)` in the source.
   This applies especially to the three "Hulp bij kiezen" cards: if the guides
   are not written, remove the cards.
 
-### `TODO(assets)` — real imagery
+### Catalogue imagery
+
+Category and bestseller images now point at **real Smart Print product
+photography**, and the brand / B2B / education blocks at real Filaverse and
+Bambu Lab imagery. The URLs live in `data/categories.json` and
+`data/products.json` and are baked into the markup by `scripts/build.mjs`;
+the three remaining blocks are still swapped at runtime in `main.js`.
+
+Real photography is a product cut-out on white, so those images carry
+`class="fv-photo"` (`object-fit: contain` on white) instead of being cropped
+like the schematic placeholders.
+
+Two things to settle:
+
+- **The images are hotlinked** from `b2b.smartprint24.com` and WordPress/S3
+  CDNs. That makes the homepage depend on hosts it does not control, and any
+  hotlink protection, CDN change or renamed file breaks it silently. Copy the
+  assets into `assets/img/` and serve them from the same origin before launch.
+- **They could not be verified from here.** This sandbox's egress policy blocks
+  both hosts, so the images were never actually rendered during development —
+  layout was checked with them failing to load. Open the page on a normal
+  connection and confirm framing, aspect ratio and quality.
+
+### `TODO(assets)` — remaining placeholder imagery
 All `assets/img/*-placeholder.svg` files are schematic SVG illustrations, drawn
 from scratch and clearly labelled `PLACEHOLDER` in the artwork itself. No
 competitor imagery was used anywhere. Replace with real Filaverse photography.
@@ -238,6 +261,8 @@ Checked in Chromium at 390 / 834 / 1440 px:
 - hero video autoplays on desktop and is never requested at 390 px (0 `<source>`
   elements, poster only)
 - every colour pair passes WCAG AA
+- no JavaScript or console errors (remote catalogue images cannot be fetched
+  from the development sandbox; that noise is excluded)
 
 ## Out of scope
 

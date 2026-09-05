@@ -35,6 +35,17 @@ const esc = (value) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+/**
+ * Real catalogue photography is shot as a product cut-out on white, so it must
+ * be contained rather than cropped like the schematic placeholders. Marking it
+ * in the markup keeps that treatment in CSS instead of inline styles.
+ */
+function photoClass(item) {
+  const remote = /^https?:/i.test(item.image || "");
+  const real = item.imagePlaceholder === false || item.placeholder === false;
+  return remote || real ? "fv-photo" : "";
+}
+
 const arrowIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
 /**
@@ -46,7 +57,7 @@ function categoryCard(cat) {
   return `          <li>
             <article class="fv-card fv-category fv-reveal">
               <div class="fv-card__media">
-                <img src="${esc(cat.image)}" alt="${esc(cat.alt)}" width="600" height="600" loading="lazy" decoding="async">
+                <img class="${photoClass(cat)}" src="${esc(cat.image)}" alt="${esc(cat.alt)}" width="600" height="600" loading="lazy" decoding="async">
               </div>
               <div class="fv-category__body">
                 <h3><a class="fv-stretch" href="${esc(cat.url)}">${esc(cat.name)}</a></h3>
@@ -101,7 +112,7 @@ function productCard(product) {
   return `          <li>
             <article class="fv-card fv-product fv-reveal">
 ${badge}              <div class="fv-card__media">
-                <img src="${esc(product.image)}" alt="${esc(product.alt)}" width="800" height="800" loading="lazy" decoding="async">
+                <img class="${photoClass(product)}" src="${esc(product.image)}" alt="${esc(product.alt)}" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="fv-card__body fv-product__body">
                 <p class="fv-product__brand">${esc(product.brand)}</p>
