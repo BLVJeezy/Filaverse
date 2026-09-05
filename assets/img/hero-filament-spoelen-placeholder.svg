@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 120 1200 740" width="1200" height="740" role="img" aria-label="Placeholder: verschillende filamentspoelen en een 3D-geprint object">
+  <title>Placeholder: verschillende filamentspoelen en een 3D-geprint object</title>
+  <!-- PLACEHOLDER ASSET - replace with real Filaverse product photography. See README.md -->
+  <rect width="1200" height="900" fill="#ffffff"/>
+  <defs>
+    <linearGradient id="hb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef1f5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#hb)"/>
+  <ellipse cx="600" cy="740" rx="470" ry="60" fill="#dfe4ec" opacity=".7"/>
+
+  <g transform="translate(370 470) rotate(0)">
+    <circle r="215" fill="#eef1f5"/>
+    <circle r="215" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="184.9" fill="#e8622a"/>
+    <circle r="184.9" fill="none" stroke="#b8481c" stroke-width="12.90"/>
+    <circle r="159.1" fill="none" stroke="#b8481c" stroke-width="1" opacity=".45"/>
+    <circle r="133.3" fill="none" stroke="#b8481c" stroke-width="1" opacity=".35"/>
+    <circle r="107.5" fill="#f7f9fb"/>
+    <circle r="107.5" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="36.6" fill="#e2e6ed"/>
+    <circle r="36.6" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(760 400) rotate(0)">
+    <circle r="175" fill="#eef1f5"/>
+    <circle r="175" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="150.5" fill="#2f9e8f"/>
+    <circle r="150.5" fill="none" stroke="#1f7368" stroke-width="10.50"/>
+    <circle r="129.5" fill="none" stroke="#1f7368" stroke-width="1" opacity=".45"/>
+    <circle r="108.5" fill="none" stroke="#1f7368" stroke-width="1" opacity=".35"/>
+    <circle r="87.5" fill="#f7f9fb"/>
+    <circle r="87.5" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="29.8" fill="#e2e6ed"/>
+    <circle r="29.8" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(930 585) rotate(0)">
+    <circle r="135" fill="#eef1f5"/>
+    <circle r="135" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="116.1" fill="#f0a63c"/>
+    <circle r="116.1" fill="none" stroke="#c9812a" stroke-width="8.10"/>
+    <circle r="99.9" fill="none" stroke="#c9812a" stroke-width="1" opacity=".45"/>
+    <circle r="83.7" fill="none" stroke="#c9812a" stroke-width="1" opacity=".35"/>
+    <circle r="67.5" fill="#f7f9fb"/>
+    <circle r="67.5" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="23.0" fill="#e2e6ed"/>
+    <circle r="23.0" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(560 640) rotate(0)">
+    <circle r="120" fill="#eef1f5"/>
+    <circle r="120" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="103.2" fill="#1b4b86"/>
+    <circle r="103.2" fill="none" stroke="#143a68" stroke-width="7.20"/>
+    <circle r="88.8" fill="none" stroke="#143a68" stroke-width="1" opacity=".45"/>
+    <circle r="74.4" fill="none" stroke="#143a68" stroke-width="1" opacity=".35"/>
+    <circle r="60.0" fill="#f7f9fb"/>
+    <circle r="60.0" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="20.4" fill="#e2e6ed"/>
+    <circle r="20.4" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+  <!-- printed object suggestion -->
+  <g transform="translate(180 690)">
+    <path d="M0 0 L60 -34 L120 0 L120 60 L60 94 L0 60 Z" fill="#4aa3c7" opacity=".9"/>
+    <path d="M0 0 L60 34 L120 0" fill="none" stroke="#2d7f9e" stroke-width="3"/>
+    <path d="M60 34 L60 94" fill="none" stroke="#2d7f9e" stroke-width="3"/>
+  </g>
+  <text x="600" y="852" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" font-weight="600" fill="#93a0b0" letter-spacing="1.5">PLACEHOLDER — vervang door Filaverse productfotografie</text>
+</svg>

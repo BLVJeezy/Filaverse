@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-label="Filaverse">
+  <title>Filaverse</title>
+  <!-- PLACEHOLDER ASSET - replace with real Filaverse product photography. See README.md -->
+  <g transform="translate(32 32)">
+    <circle r="24" fill="#ffffff"/>
+    <circle r="17" fill="none" stroke="#e8622a" stroke-width="5"/>
+    <circle r="6.5" fill="#10233d"/>
+  </g>
+  <text x="68" y="42" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="30" font-weight="700" letter-spacing="-0.5" fill="#ffffff">FILA<tspan fill="#e8622a">VERSE</tspan></text>
+</svg>

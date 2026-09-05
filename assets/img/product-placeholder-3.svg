@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Placeholder: productfoto filamentspoel">
+  <title>Placeholder: productfoto filamentspoel</title>
+  <!-- PLACEHOLDER ASSET - replace with real Filaverse product photography. See README.md -->
+  <rect width="800" height="800" fill="#f7f8fa"/>
+  <rect width="800" height="800" fill="#f7f8fa"/>
+
+  <g transform="translate(400 390) rotate(0)">
+    <circle r="250" fill="#eef1f5"/>
+    <circle r="250" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="215.0" fill="#1b4b86"/>
+    <circle r="215.0" fill="none" stroke="#143a68" stroke-width="15.00"/>
+    <circle r="185.0" fill="none" stroke="#143a68" stroke-width="1" opacity=".45"/>
+    <circle r="155.0" fill="none" stroke="#143a68" stroke-width="1" opacity=".35"/>
+    <circle r="125.0" fill="#f7f9fb"/>
+    <circle r="125.0" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="42.5" fill="#e2e6ed"/>
+    <circle r="42.5" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+  <text x="400" y="742" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" font-weight="600" fill="#93a0b0" letter-spacing="1.2">PLACEHOLDER PRODUCTFOTO</text>
+</svg>

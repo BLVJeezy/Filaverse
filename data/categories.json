@@ -1,0 +1,59 @@
+{
+  "_comment": "Material categories shown in homepage section 'Kies het juiste filament'. Only list categories that genuinely exist in the catalogue — delete any entry whose `url` has no real category page behind it.",
+  "categories": [
+    {
+      "slug": "pla",
+      "name": "PLA",
+      "useCase": "Veelzijdig en eenvoudig te printen.",
+      "url": "/filament/pla",
+      "image": "assets/img/category-pla-filament-placeholder.svg",
+      "alt": "PLA filamentspoel",
+      "imagePlaceholder": true
+    },
+    {
+      "slug": "pla-plus",
+      "name": "PLA+",
+      "useCase": "Steviger dan standaard PLA, even makkelijk in gebruik.",
+      "url": "/filament/pla-plus",
+      "image": "assets/img/category-pla-plus-filament-placeholder.svg",
+      "alt": "PLA+ filamentspoel",
+      "imagePlaceholder": true
+    },
+    {
+      "slug": "petg",
+      "name": "PETG",
+      "useCase": "Sterk en duurzaam voor functionele prints.",
+      "url": "/filament/petg",
+      "image": "assets/img/category-petg-filament-placeholder.svg",
+      "alt": "PETG filamentspoel",
+      "imagePlaceholder": true
+    },
+    {
+      "slug": "tpu",
+      "name": "TPU",
+      "useCase": "Flexibel voor onderdelen die moeten meebewegen.",
+      "url": "/filament/tpu",
+      "image": "assets/img/category-tpu-filament-placeholder.svg",
+      "alt": "TPU filamentspoel",
+      "imagePlaceholder": true
+    },
+    {
+      "slug": "asa",
+      "name": "ASA",
+      "useCase": "Bestand tegen UV en weer, voor gebruik buiten.",
+      "url": "/filament/asa",
+      "image": "assets/img/category-asa-filament-placeholder.svg",
+      "alt": "ASA filamentspoel",
+      "imagePlaceholder": true
+    },
+    {
+      "slug": "silk-specials",
+      "name": "Silk & specials",
+      "useCase": "Opvallende afwerking voor decoratieve prints.",
+      "url": "/filament/silk-specials",
+      "image": "assets/img/category-silk-filament-placeholder.svg",
+      "alt": "Silk filamentspoel",
+      "imagePlaceholder": true
+    }
+  ]
+}

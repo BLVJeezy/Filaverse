@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Placeholder: 3D-printer en filament voor onderwijs">
+  <title>Placeholder: 3D-printer en filament voor onderwijs</title>
+  <!-- PLACEHOLDER ASSET - replace with real Filaverse product photography. See README.md -->
+  <rect width="960" height="540" fill="#eef6f6"/>
+  <rect width="960" height="540" fill="#eef6f6"/>
+  <ellipse cx="480" cy="456" rx="350" ry="40" fill="#d6e9e9" opacity=".85"/>
+  <!-- printer frame suggestion -->
+  <g stroke="#2f9e8f" stroke-width="9" fill="none" stroke-linecap="round">
+    <rect x="300" y="150" width="360" height="290" rx="12"/>
+    <path d="M300 250 H660"/>
+    <path d="M480 250 V330"/>
+  </g>
+  <rect x="432" y="322" width="96" height="46" rx="8" fill="#2f9e8f"/>
+
+  <g transform="translate(700 400) rotate(0)">
+    <circle r="78" fill="#eef1f5"/>
+    <circle r="78" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="67.1" fill="#f0a63c"/>
+    <circle r="67.1" fill="none" stroke="#c9812a" stroke-width="4.68"/>
+    <circle r="57.7" fill="none" stroke="#c9812a" stroke-width="1" opacity=".45"/>
+    <circle r="48.4" fill="none" stroke="#c9812a" stroke-width="1" opacity=".35"/>
+    <circle r="39.0" fill="#f7f9fb"/>
+    <circle r="39.0" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="13.3" fill="#e2e6ed"/>
+    <circle r="13.3" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(250 400) rotate(0)">
+    <circle r="62" fill="#eef1f5"/>
+    <circle r="62" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="53.3" fill="#e8622a"/>
+    <circle r="53.3" fill="none" stroke="#b8481c" stroke-width="3.72"/>
+    <circle r="45.9" fill="none" stroke="#b8481c" stroke-width="1" opacity=".45"/>
+    <circle r="38.4" fill="none" stroke="#b8481c" stroke-width="1" opacity=".35"/>
+    <circle r="31.0" fill="#f7f9fb"/>
+    <circle r="31.0" fill="none" stroke="#d7dde6" stroke-width="1.5"/>
+    <circle r="10.5" fill="#e2e6ed"/>
+    <circle r="10.5" fill="none" stroke="#cfd6e0" stroke-width="1"/>
+  </g>
+  <text x="480" y="514" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="600" fill="#7fa3a3" letter-spacing="1.2">PLACEHOLDER — 3D-printen in de klas</text>
+</svg>
