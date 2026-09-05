@@ -207,6 +207,21 @@ Media keeps stable filenames and is cached for a day with
 than being pinned for a year. The HTML itself is always revalidated, since it is
 what carries the versioned asset URLs.
 
+The three `vercel.json` rules, in order — note that **`vercel.json` cannot carry
+comments**; Vercel's schema rejects any property on a header rule beyond
+`source`, `headers`, `has` and `missing`, and a stray `"//"` key fails the
+deployment outright:
+
+| `source` | Cache-Control | Why |
+|---|---|---|
+| `/assets/(.*).(css\|js)` | 1 year, `immutable` | Safe: these URLs carry a content hash |
+| `/assets/(.*).(jpg\|png\|svg\|mp4\|…)` | 1 day + `stale-while-revalidate` | Stable filenames, replaceable in place |
+| `/((?!assets/).*)` | `max-age=0, must-revalidate` | Carries the versioned URLs; never stale |
+
+The catch-all deliberately excludes `/assets/` rather than relying on rule
+order, so no two rules can fight over the same header. The patterns are
+path-to-regexp; each of the paths above matches exactly one rule.
+
 ### Hero background video
 
 `assets/video/filaverse-hero-3d-print.{mp4,webm}` — a looping, silent,
